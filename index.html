@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAKERS - Plataforma Creativa</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            teal: '#14b8a6',
+                            tealLight: '#38bec9',
+                            tealBg: '#e6fffa',
+                            dark: '#1f2937',
+                            darker: '#18181b',
+                            pink: '#ec4899',
+                            magenta: '#d946ef',
+                            gold: '#fbbf24',
+                            grayLight: '#f8fafc',
+                            grayCard: '#f1f5f9'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937;
+            overflow-x: hidden;
+        }
+        .view-section {
+            display: none;
+        }
+        .view-section.active {
+            display: block;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER / NAVBAR -->
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo & Brand -->
+            <div class="flex items-center space-x-8">
+                <a href="#" onclick="switchView('inicio'); return false;" class="flex items-center space-x-2 group">
+                    <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-purple-400 via-pink-400 to-teal-400 flex items-center justify-center text-white shadow-md transform group-hover:scale-105 transition">
+                        <i class="fa-solid fa-paintbrush text-sm"></i>
+                    </div>
+                    <span class="text-2xl font-black tracking-wider text-gray-900">MAKERS</span>
+                </a>
+                
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#" id="nav-inicio" onclick="switchView('inicio'); return false;" class="text-sm font-semibold text-gray-800 hover:text-teal-500 transition py-1 relative">INICIO</a>
+                    <a href="#" id="nav-servicios" onclick="switchView('servicios'); return false;" class="text-sm font-semibold text-gray-500 hover:text-teal-500 transition py-1 relative">SERVICIOS</a>
+                    <a href="#" id="nav-proyectos" onclick="switchView('proyectos'); return false;" class="text-sm font-semibold text-gray-500 hover:text-teal-500 transition py-1 relative">PROYECTOS</a>
+                    <a href="#" id="nav-oportunidades" onclick="switchView('oportunidades'); return false;" class="text-sm font-semibold text-gray-500 hover:text-teal-500 transition py-1 relative">OPORTUNIDADES</a>
+                </nav>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex items-center space-x-4">
+                <button onclick="openModal('Registrarse')" class="hidden sm:inline-block px-5 py-2.5 text-sm font-semibold text-teal-600 border border-teal-500 rounded-full hover:bg-teal-50 transition">
+                    Registrarse
+                </button>
+                <button onclick="openModal('Iniciar sesión')" class="px-5 py-2.5 text-sm font-semibold text-white bg-teal-500 rounded-full hover:bg-teal-600 shadow-sm transition">
+                    Iniciar sesión
+                </button>
+                <div class="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center text-gray-600 hover:bg-gray-100 cursor-pointer transition">
+                    <i class="fa-solid fa-user text-sm"></i>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Navigation bar -->
+        <div class="md:hidden flex justify-around bg-gray-50 py-2 border-t border-gray-100 text-xs font-semibold">
+            <a href="#" onclick="switchView('inicio'); return false;" class="text-teal-600">INICIO</a>
+            <a href="#" onclick="switchView('servicios'); return false;" class="text-gray-600">SERVICIOS</a>
+            <a href="#" onclick="switchView('proyectos'); return false;" class="text-gray-600">PROYECTOS</a>
+            <a href="#" onclick="switchView('oportunidades'); return false;" class="text-gray-600">OPORTUNIDADES</a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER FOR VIEWS -->
+    <main class="flex-grow">
+
+        <!-- ================= VIEW 1: INICIO ================= -->
+        <section id="view-inicio" class="view-section active">
+            <!-- Hero Section -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-6 space-y-6">
+                    <span class="text-xs font-bold uppercase tracking-wider text-gray-700 bg-gray-100 px-3 py-1 rounded-full">Creatividad que impulsa negocios</span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 tracking-tight leading-tight">
+                        Encuentra <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-pink-500">el talento</span> que tu proyecto <span class="text-teal-500">necesita.</span>
+                    </h1>
+                    <p class="text-gray-600 text-base sm:text-lg max-w-lg">
+                        Descubre profesionales creativos, conoce su trabajo y conecta con el talento que hará realidad tus ideas.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <button onclick="switchView('servicios')" class="px-6 py-3.5 bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-full shadow-md transition flex items-center space-x-2">
+                            <span>Explorar Servicios</span>
+                        </button>
+                        <button onclick="switchView('proyectos')" class="px-6 py-3.5 border-2 border-teal-500 text-teal-600 hover:bg-teal-50 font-semibold rounded-full transition">
+                            Publicar Proyecto
+                        </button>
+                    </div>
+                </div>
+                <div class="lg:col-span-6 relative flex justify-center">
+                    <div class="relative w-full max-w-lg">
+                        <!-- Decorative bg bubble -->
+                        <div class="absolute -top-6 -left-6 w-72 h-72 bg-pink-100 rounded-full filter blur-2xl opacity-60 z-0"></div>
+                        <div class="absolute -bottom-6 -right-6 w-72 h-72 bg-teal-100 rounded-full filter blur-2xl opacity-60 z-0"></div>
+                        <!-- Main Hero Image -->
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" alt="Creativa con laptop" class="relative z-10 rounded-3xl object-cover shadow-xl w-full h-[380px]">
+                        <!-- Floating badges -->
+                        <div class="absolute top-8 right-4 z-20 bg-white/90 backdrop-blur-md px-4 py-2.5 rounded-2xl shadow-lg border border-gray-100 flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-teal-100 text-teal-600 flex items-center justify-center">
+                                <i class="fa-solid fa-palette text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-gray-800">Diseño que conecta</p>
+                            </div>
+                        </div>
+                        <div class="absolute top-24 right-4 z-20 bg-white/90 backdrop-blur-md px-4 py-2.5 rounded-2xl shadow-lg border border-gray-100 flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-pink-100 text-pink-600 flex items-center justify-center">
+                                <i class="fa-solid fa-pen-nib text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-gray-800">Contenido que inspira</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Explorar por categoría -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-8">Explorar por categoría</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-6 text-center">
+                    <!-- Cat 1 -->
+                    <div onclick="switchView('servicios')" class="group cursor-pointer flex flex-col items-center">
+                        <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden shadow-md group-hover:scale-105 transition border-2 border-transparent group-hover:border-teal-400">
+                            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=300&q=80" alt="Ilustración" class="w-full h-full object-cover">
+                        </div>
+                        <span class="mt-3 text-sm font-semibold text-gray-800 group-hover:text-teal-600">Ilustración</span>
+                    </div>
+                    <!-- Cat 2 -->
+                    <div onclick="switchView('servicios')" class="group cursor-pointer flex flex-col items-center">
+                        <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden shadow-md group-hover:scale-105 transition border-2 border-transparent group-hover:border-teal-400">
+                            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=300&q=80" alt="Fotografía" class="w-full h-full object-cover">
+                        </div>
+                        <span class="mt-3 text-sm font-semibold text-gray-800 group-hover:text-teal-600">Fotografía</span>
+                    </div>
+                    <!-- Cat 3 -->
+                    <div onclick="switchView('servicios')" class="group cursor-pointer flex flex-col items-center">
+                        <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden shadow-md group-hover:scale-105 transition border-2 border-transparent group-hover:border-teal-400">
+                            <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=300&q=80" alt="Diseño Web" class="w-full h-full object-cover">
+                        </div>
+                        <span class="mt-3 text-sm font-semibold text-gray-800 group-hover:text-teal-600">Diseño Web</span>
+                    </div>
+                    <!-- Cat 4 -->
+                    <div onclick="switchView('servicios')" class="group cursor-pointer flex flex-col items-center">
+                        <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden shadow-md group-hover:scale-105 transition border-2 border-transparent group-hover:border-teal-400">
+                            <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=300&q=80" alt="Edición / Video" class="w-full h-full object-cover">
+                        </div>
+                        <span class="mt-3 text-sm font-semibold text-gray-800 group-hover:text-teal-600">Edición / Video</span>
+                    </div>
+                    <!-- Cat 5 -->
+                    <div onclick="switchView('servicios')" class="group cursor-pointer flex flex-col items-center">
+                        <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden shadow-md group-hover:scale-105 transition border-2 border-transparent group-hover:border-teal-400">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=300&q=80" alt="Marketing Digital" class="w-full h-full object-cover">
+                        </div>
+                        <span class="mt-3 text-sm font-semibold text-gray-800 group-hover:text-teal-600">Marketing Digital</span>
+                    </div>
+                    <!-- Cat 6 -->
+                    <div onclick="switchView('servicios')" class="group cursor-pointer flex flex-col items-center">
+                        <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden shadow-md group-hover:scale-105 transition border-2 border-transparent group-hover:border-teal-400">
+                            <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=300&q=80" alt="Copywriting" class="w-full h-full object-cover">
+                        </div>
+                        <span class="mt-3 text-sm font-semibold text-gray-800 group-hover:text-teal-600">Copywriting / Storytelling</span>
+                    </div>
+                    <!-- Cat 7 -->
+                    <div onclick="switchView('servicios')" class="group cursor-pointer flex flex-col items-center col-span-2 sm:col-span-1">
+                        <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden shadow-md group-hover:scale-105 transition border-2 border-transparent group-hover:border-teal-400">
+                            <img src="https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&w=300&q=80" alt="Branding" class="w-full h-full object-cover">
+                        </div>
+                        <span class="mt-3 text-sm font-semibold text-gray-800 group-hover:text-teal-600">Branding</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profesionales destacados -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-8">Profesionales destacados</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Card 1 -->
+                    <div onclick="switchView('detalle')" class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="h-64 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=600&q=80" alt="Valentina Rojas" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+                            </div>
+                            <div class="p-5 space-y-2">
+                                <div class="flex items-center space-x-1.5">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
+                                    <span class="text-xs font-medium text-emerald-600">Disponible</span>
+                                </div>
+                                <h3 class="font-bold text-lg text-gray-900">Valentina Rojas</h3>
+                                <p class="text-xs text-gray-500">Diseñadora gráfica - Lima</p>
+                                <div class="flex items-center space-x-1 pt-1">
+                                    <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                                    <span class="text-xs font-bold text-gray-800">4.95</span>
+                                    <span class="text-xs text-gray-400">(50)</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 pt-2">
+                                    <span class="text-[10px] bg-lime-100 text-lime-800 px-2.5 py-1 rounded-full font-semibold">Branding</span>
+                                    <span class="text-[10px] bg-pink-100 text-pink-800 px-2.5 py-1 rounded-full font-semibold">Diseño Gráfico</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="px-5 py-4 border-t border-gray-100 flex items-center justify-between text-sm">
+                            <span class="text-gray-500 text-xs">Desde S/ 950</span>
+                            <i class="fa-solid fa-arrow-right text-gray-400"></i>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div onclick="switchView('detalle')" class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="h-64 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=600&q=80" alt="Diego Morales" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+                            </div>
+                            <div class="p-5 space-y-2">
+                                <div class="flex items-center space-x-1.5">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
+                                    <span class="text-xs font-medium text-emerald-600">Disponible</span>
+                                </div>
+                                <h3 class="font-bold text-lg text-gray-900">Diego Morales</h3>
+                                <p class="text-xs text-gray-500">Marketing Digital - Arequipa</p>
+                                <div class="flex items-center space-x-1 pt-1">
+                                    <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                                    <span class="text-xs font-bold text-gray-800">4.89</span>
+                                    <span class="text-xs text-gray-400">(38)</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 pt-2">
+                                    <span class="text-[10px] bg-purple-100 text-purple-800 px-2.5 py-1 rounded-full font-semibold">Marketing Digital</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="px-5 py-4 border-t border-gray-100 flex items-center justify-between text-sm">
+                            <span class="text-gray-500 text-xs">Desde S/ 850</span>
+                            <i class="fa-solid fa-arrow-right text-gray-400"></i>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div onclick="switchView('detalle')" class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="h-64 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80" alt="Camila Salazar" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+                            </div>
+                            <div class="p-5 space-y-2">
+                                <div class="flex items-center space-x-1.5">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
+                                    <span class="text-xs font-medium text-emerald-600">Disponible</span>
+                                </div>
+                                <h3 class="font-bold text-lg text-gray-900">Camila Salazar</h3>
+                                <p class="text-xs text-gray-500">Fotógrafa - Lima</p>
+                                <div class="flex items-center space-x-1 pt-1">
+                                    <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                                    <span class="text-xs font-bold text-gray-800">5.00</span>
+                                    <span class="text-xs text-gray-400">(15)</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 pt-2">
+                                    <span class="text-[10px] bg-sky-100 text-sky-800 px-2.5 py-1 rounded-full font-semibold">Fotografía</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="px-5 py-4 border-t border-gray-100 flex items-center justify-between text-sm">
+                            <span class="text-gray-500 text-xs">Desde S/ 350</span>
+                            <i class="fa-solid fa-arrow-right text-gray-400"></i>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div onclick="switchView('detalle')" class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="h-64 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=600&q=80" alt="Lucía Gómez" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+                            </div>
+                            <div class="p-5 space-y-2">
+                                <div class="flex items-center space-x-1.5">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
+                                    <span class="text-xs font-medium text-emerald-600">Disponible</span>
+                                </div>
+                                <h3 class="font-bold text-lg text-gray-900">Lucía Gómez</h3>
+                                <p class="text-xs text-gray-500">Editor - Trujillo</p>
+                                <div class="flex items-center space-x-1 pt-1">
+                                    <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                                    <span class="text-xs font-bold text-gray-800">4.85</span>
+                                    <span class="text-xs text-gray-400">(42)</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 pt-2">
+                                    <span class="text-[10px] bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full font-semibold">Edición</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="px-5 py-4 border-t border-gray-100 flex items-center justify-between text-sm">
+                            <span class="text-gray-500 text-xs">Desde S/ 740</span>
+                            <i class="fa-solid fa-arrow-right text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ¿Cómo funciona? -->
+            <div class="bg-gray-50/50 py-16 my-8 border-y border-gray-100">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h2 class="text-3xl font-black text-gray-900 mb-12 uppercase tracking-wide">¿Cómo funciona?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Step 1 -->
+                        <div class="flex flex-col items-center bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+                            <span class="text-5xl font-black text-gray-300 mb-4">1</span>
+                            <div class="bg-teal-100 text-teal-700 px-5 py-2.5 rounded-full font-bold text-sm mb-4">Busca o pública</div>
+                            <p class="text-gray-600 text-sm">Explora servicio o pública tu proyecto en minutos.</p>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="flex flex-col items-center bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+                            <span class="text-5xl font-black text-gray-300 mb-4">2</span>
+                            <div class="bg-teal-100 text-teal-700 px-5 py-2.5 rounded-full font-bold text-sm mb-4 flex items-center space-x-2">
+                                <i class="fa-solid fa-briefcase"></i>
+                                <span>Conecta y trabaja</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">Elige el mejor talento o cliente según tus necesidades.</p>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="flex flex-col items-center bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+                            <span class="text-5xl font-black text-gray-300 mb-4">3</span>
+                            <div class="bg-teal-100 text-teal-700 px-5 py-2.5 rounded-full font-bold text-sm mb-4 flex items-center space-x-2">
+                                <i class="fa-solid fa-arrow-trend-up"></i>
+                                <span>Recibe y crece</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">Elige tu proyecto, califica y sigue haciendo crecer tu marca.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tu próxima gran idea empieza aquí -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-5 space-y-6">
+                        <h2 class="text-3xl sm:text-4xl font-black leading-tight">
+                            TU PRÓXIMA <br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-pink-500">GRAN IDEA</span> <br>
+                            EMPIEZA AQUÍ!
+                        </h2>
+                        <p class="text-gray-600 text-sm sm:text-base">
+                            Ya sea que busques servicios o quieras ofrecer tu talento.
+                        </p>
+                        <p class="font-bold text-gray-900 text-sm">
+                            MAKERS <span class="text-gray-500 font-normal">lo hace realidad!</span>
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <!-- Client banner box -->
+                        <div class="bg-gray-50 rounded-3xl p-6 border border-gray-100 flex flex-col justify-between">
+                            <div class="space-y-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center">
+                                        <i class="fa-solid fa-user text-sm"></i>
+                                    </div>
+                                    <span class="font-bold text-gray-900">SOY CLIENTE</span>
+                                </div>
+                                <p class="text-xs text-gray-500 leading-relaxed">Necesito un servicio creativo para mi negocio.</p>
+                            </div>
+                            <div class="mt-6 flex items-center justify-between">
+                                <button onclick="switchView('servicios')" class="px-5 py-2.5 bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-full text-xs transition">
+                                    Ver servicios
+                                </button>
+                                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=200&q=80" alt="Cliente" class="w-16 h-16 rounded-2xl object-cover shadow-md">
+                            </div>
+                        </div>
+                        <!-- Freelance banner box -->
+                        <div class="bg-gray-50 rounded-3xl p-6 border border-gray-100 flex flex-col justify-between">
+                            <div class="space-y-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center">
+                                        <i class="fa-solid fa-laptop-code text-sm"></i>
+                                    </div>
+                                    <span class="font-bold text-gray-900">SOY FREELANCE</span>
+                                </div>
+                                <p class="text-xs text-gray-500 leading-relaxed">Quiero ofrecer mis servicios y conseguir nuevos proyectos.</p>
+                            </div>
+                            <div class="mt-6 flex items-center justify-between">
+                                <button onclick="switchView('oportunidades')" class="px-5 py-2.5 border border-teal-500 text-teal-600 hover:bg-teal-50 font-semibold rounded-full text-xs transition flex items-center space-x-1.5">
+                                    <i class="fa-solid fa-magnifying-glass text-[10px]"></i>
+                                    <span>Ver oportu...</span>
+                                </button>
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80" alt="Freelance" class="w-16 h-16 rounded-2xl object-cover shadow-md">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= VIEW 2: SERVICIOS ================= -->
+        <section id="view-servicios" class="view-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <!-- Services Hero Banner -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-gradient-to-r from-teal-50/50 to-pink-50/50 p-8 rounded-3xl border border-gray-100 mb-12">
+                    <div class="lg:col-span-6 space-y-4">
+                        <h1 class="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight leading-tight">
+                            TODO LO NECESARIO PARA HACER REALIDAD TUS IDEAS
+                        </h1>
+                    </div>
+                    <div class="lg:col-span-6 flex justify-end">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Servicios Makers" class="rounded-2xl shadow-md w-full h-[220px] object-cover">
+                    </div>
+                </div>
+
+                <p class="text-center text-gray-600 text-sm max-w-2xl mx-auto mb-12">
+                    Selecciona el servicio que tu proyecto necesita para comenzar a trabajar con expertos verificados.
+                </p>
+
+                <!-- Services Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Service 1: Branding -->
+                    <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm flex flex-col sm:flex-row gap-6 items-center">
+                        <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=400&q=80" alt="Branding" class="w-full sm:w-48 h-48 rounded-2xl object-cover shadow-sm">
+                        <div class="space-y-3 flex-grow">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full font-medium">Identidad</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">Branding</h3>
+                            <p class="text-xs text-gray-500 leading-relaxed">Construye una identidad única para tu marca que conecte con tus clientes ideales.</p>
+                            <button onclick="switchView('proyectos')" class="inline-flex items-center space-x-2 text-xs font-bold text-teal-600 hover:text-teal-700 pt-2">
+                                <span>Ver expertos</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Service 2: Diseño Gráfico -->
+                    <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm flex flex-col sm:flex-row gap-6 items-center">
+                        <img src="https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&w=400&q=80" alt="Diseño Gráfico" class="w-full sm:w-48 h-48 rounded-2xl object-cover shadow-sm">
+                        <div class="space-y-3 flex-grow">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full font-medium">Creatividad</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">Diseño Gráfico</h3>
+                            <p class="text-xs text-gray-500 leading-relaxed">Diseños que comunican, transmiten profesionalismo y cautivan a primera vista.</p>
+                            <button onclick="switchView('proyectos')" class="inline-flex items-center space-x-2 text-xs font-bold text-teal-600 hover:text-teal-700 pt-2">
+                                <span>Ver expertos</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Service 3: Fotografía -->
+                    <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm flex flex-col sm:flex-row gap-6 items-center">
+                        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=400&q=80" alt="Fotografía" class="w-full sm:w-48 h-48 rounded-2xl object-cover shadow-sm">
+                        <div class="space-y-3 flex-grow">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full font-medium">Visual</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">Fotografía</h3>
+                            <p class="text-xs text-gray-500 leading-relaxed">Captura lo que importa con imágenes de alta definición para productos y campañas.</p>
+                            <button onclick="switchView('proyectos')" class="inline-flex items-center space-x-2 text-xs font-bold text-teal-600 hover:text-teal-700 pt-2">
+                                <span>Ver expertos</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Service 4: Edición / Video -->
+                    <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm flex flex-col sm:flex-row gap-6 items-center">
+                        <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=400&q=80" alt="Edición / Video" class="w-full sm:w-48 h-48 rounded-2xl object-cover shadow-sm">
+                        <div class="space-y-3 flex-grow">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full font-medium">Multimedia</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">Edición / Video</h3>
+                            <p class="text-xs text-gray-500 leading-relaxed">Dale vida a tus ideas con producciones audiovisuales dinámicas y profesionales.</p>
+                            <button onclick="switchView('proyectos')" class="inline-flex items-center space-x-2 text-xs font-bold text-teal-600 hover:text-teal-700 pt-2">
+                                <span>Ver expertos</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Service 5: Marketing Digital -->
+                    <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm flex flex-col sm:flex-row gap-6 items-center">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80" alt="Marketing Digital" class="w-full sm:w-48 h-48 rounded-2xl object-cover shadow-sm">
+                        <div class="space-y-3 flex-grow">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full font-medium">Estrategia</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">Marketing Digital</h3>
+                            <p class="text-xs text-gray-500 leading-relaxed">Haz crecer tu marca en internet con campañas orientadas a conversión y alcance.</p>
+                            <button onclick="switchView('proyectos')" class="inline-flex items-center space-x-2 text-xs font-bold text-teal-600 hover:text-teal-700 pt-2">
+                                <span>Ver expertos</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Service 6: Copywriting -->
+                    <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm flex flex-col sm:flex-row gap-6 items-center">
+                        <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=400&q=80" alt="Copywriting" class="w-full sm:w-48 h-48 rounded-2xl object-cover shadow-sm">
+                        <div class="space-y-3 flex-grow">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full font-medium">Contenido</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">Copywriting / Storytelling</h3>
+                            <p class="text-xs text-gray-500 leading-relaxed">Historias que venden y textos persuasivos que conectan con la emoción del usuario.</p>
+                            <button onclick="switchView('proyectos')" class="inline-flex items-center space-x-2 text-xs font-bold text-teal-600 hover:text-teal-700 pt-2">
+                                <span>Ver expertos</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Service 7: Diseño Web -->
+                    <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm flex flex-col sm:flex-row gap-6 items-center">
+                        <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=400&q=80" alt="Diseño Web" class="w-full sm:w-48 h-48 rounded-2xl object-cover shadow-sm">
+                        <div class="space-y-3 flex-grow">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full font-medium">Desarrollo</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">Diseño Web</h3>
+                            <p class="text-xs text-gray-500 leading-relaxed">Sitios web modernos, responsivos y funcionales optimizados para conversión.</p>
+                            <button onclick="switchView('proyectos')" class="inline-flex items-center space-x-2 text-xs font-bold text-teal-600 hover:text-teal-700 pt-2">
+                                <span>Ver expertos</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Service 8: Ilustración -->
+                    <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm flex flex-col sm:flex-row gap-6 items-center">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80" alt="Ilustración" class="w-full sm:w-48 h-48 rounded-2xl object-cover shadow-sm">
+                        <div class="space-y-3 flex-grow">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full font-medium">Arte</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">Ilustración</h3>
+                            <p class="text-xs text-gray-500 leading-relaxed">Ideas que toman forma a través de ilustraciones exclusivas y memorables.</p>
+                            <button onclick="switchView('proyectos')" class="inline-flex items-center space-x-2 text-xs font-bold text-teal-600 hover:text-teal-700 pt-2">
+                                <span>Ver expertos</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= VIEW 3: PROYECTOS (PROYECTOS 2) ================= -->
+        <section id="view-proyectos" class="view-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <!-- Projects Header Banner -->
+                <div class="bg-gradient-to-r from-teal-50 via-pink-50 to-purple-50 rounded-3xl p-8 mb-8 border border-gray-100 relative overflow-hidden flex flex-col md:flex-row items-center justify-between">
+                    <div class="space-y-3 z-10">
+                        <h1 class="text-3xl sm:text-4xl font-black text-gray-900">
+                            Ideas creativas que <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-pink-500">inspiran y conectan</span>
+                        </h1>
+                    </div>
+                    <div class="flex items-center space-x-4 mt-6 md:mt-0 z-10">
+                        <button class="px-5 py-2.5 bg-white border border-gray-200 rounded-full text-xs font-bold text-gray-700 shadow-sm hover:bg-gray-50 flex items-center space-x-2">
+                            <span>FILTROS</span>
+                            <i class="fa-solid fa-filter text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="flex flex-wrap gap-4 mb-10">
+                    <button class="px-5 py-2.5 bg-teal-400 text-white rounded-full text-xs font-bold shadow-sm flex items-center space-x-2">
+                        <i class="fa-regular fa-clock"></i>
+                        <span>Mas recientes</span>
+                    </button>
+                    <button class="px-5 py-2.5 bg-teal-50 text-teal-700 rounded-full text-xs font-bold hover:bg-teal-100 transition flex items-center space-x-2">
+                        <i class="fa-regular fa-star"></i>
+                        <span>Para ti</span>
+                    </button>
+                    <button class="px-5 py-2.5 bg-teal-50 text-teal-700 rounded-full text-xs font-bold hover:bg-teal-100 transition flex items-center space-x-2">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>Tendencias</span>
+                    </button>
+                    <button class="px-5 py-2.5 bg-teal-50 text-teal-700 rounded-full text-xs font-bold hover:bg-teal-100 transition flex items-center space-x-2">
+                        <i class="fa-solid fa-crown"></i>
+                        <span>Destacados</span>
+                    </button>
+                </div>
+
+                <!-- Projects Masonry / Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    
+                    <!-- Proj Item 1: Cosmetics -->
+                    <div onclick="switchView('detalle')" class="bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="h-64 relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=600&q=80" alt="Cosmeticos" class="w-full h-full object-cover hover:scale-105 transition">
+                                <div class="absolute top-4 right-4 bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-md text-gray-700">
+                                    <i class="fa-regular fa-bookmark text-xs"></i>
+                                </div>
+                            </div>
+                            <div class="p-5 space-y-3">
+                                <span class="text-[10px] bg-lime-100 text-lime-800 px-3 py-1 rounded-full font-semibold">Branding</span>
+                                <h3 class="font-bold text-sm text-gray-900 leading-snug">Marca de cosméticos para mujeres</h3>
+                                <div class="flex items-center justify-between pt-2">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-6 h-6 rounded-full bg-gray-300 overflow-hidden">
+                                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Carlos Torres" class="w-full h-full object-cover">
+                                        </div>
+                                        <span class="text-xs text-gray-600 font-medium">Carlos Torres</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3 text-xs text-gray-400">
+                                        <span><i class="fa-regular fa-heart mr-1"></i> 450</span>
+                                        <span><i class="fa-regular fa-eye mr-1"></i> 5k</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Proj Item 2: Social Media -->
+                    <div onclick="switchView('detalle')" class="bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="h-64 relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=600&q=80" alt="Social Media" class="w-full h-full object-cover hover:scale-105 transition">
+                                <div class="absolute top-4 right-4 bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-md text-gray-700">
+                                    <i class="fa-regular fa-bookmark text-xs"></i>
+                                </div>
+                            </div>
+                            <div class="p-5 space-y-3">
+                                <span class="text-[10px] bg-purple-100 text-purple-800 px-3 py-1 rounded-full font-semibold">Marketing Digital</span>
+                                <h3 class="font-bold text-sm text-gray-900 leading-snug">Gestión de redes sociales para emprendimiento de accesorios</h3>
+                                <div class="flex items-center justify-between pt-2">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-6 h-6 rounded-full bg-gray-300 overflow-hidden">
+                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="Diego Morales" class="w-full h-full object-cover">
+                                        </div>
+                                        <span class="text-xs text-gray-600 font-medium">Diego Morales</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3 text-xs text-gray-400">
+                                        <span><i class="fa-regular fa-heart mr-1"></i> 425</span>
+                                        <span><i class="fa-regular fa-eye mr-1"></i> 1.5k</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Proj Item 3: Zapatillas -->
+                    <div onclick="switchView('detalle')" class="bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="h-64 relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80" alt="Zapatillas" class="w-full h-full object-cover hover:scale-105 transition">
+                                <div class="absolute top-4 right-4 bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-md text-gray-700">
+                                    <i class="fa-regular fa-bookmark text-xs"></i>
+                                </div>
+                            </div>
+                            <div class="p-5 space-y-3">
+                                <span class="text-[10px] bg-sky-100 text-sky-800 px-3 py-1 rounded-full font-semibold">Fotografía</span>
+                                <h3 class="font-bold text-sm text-gray-900 leading-snug">Sesión fotográfica para tienda online</h3>
+                                <div class="flex items-center justify-between pt-2">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-6 h-6 rounded-full bg-gray-300 overflow-hidden">
+                                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Camila Salazar" class="w-full h-full object-cover">
+                                        </div>
+                                        <span class="text-xs text-gray-600 font-medium">Camila Salazar</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3 text-xs text-gray-400">
+                                        <span><i class="fa-regular fa-heart mr-1"></i> 380</span>
+                                        <span><i class="fa-regular fa-eye mr-1"></i> 2k</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Proj Item 4: Web Design -->
+                    <div onclick="switchView('detalle')" class="bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="h-64 relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80" alt="Web Design" class="w-full h-full object-cover hover:scale-105 transition">
+                                <div class="absolute top-4 right-4 bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-md text-gray-700">
+                                    <i class="fa-regular fa-bookmark text-xs"></i>
+                                </div>
+                            </div>
+                            <div class="p-5 space-y-3">
+                                <span class="text-[10px] bg-teal-100 text-teal-800 px-3 py-1 rounded-full font-semibold">Diseño Web</span>
+                                <h3 class="font-bold text-sm text-gray-900 leading-snug">Diseño y desarrollo de página web</h3>
+                                <div class="flex items-center justify-between pt-2">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-6 h-6 rounded-full bg-gray-300 overflow-hidden">
+                                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" alt="Andrés Flores" class="w-full h-full object-cover">
+                                        </div>
+                                        <span class="text-xs text-gray-600 font-medium">Andrés Flores</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3 text-xs text-gray-400">
+                                        <span><i class="fa-regular fa-heart mr-1"></i> 650</span>
+                                        <span><i class="fa-regular fa-eye mr-1"></i> 5k</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Proj Item 5: Video Editing -->
+                    <div onclick="switchView('detalle')" class="bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="h-64 relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=600&q=80" alt="Video" class="w-full h-full object-cover hover:scale-105 transition">
+                                <div class="absolute top-4 right-4 bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-md text-gray-700">
+                                    <i class="fa-regular fa-bookmark text-xs"></i>
+                                </div>
+                            </div>
+                            <div class="p-5 space-y-3">
+                                <span class="text-[10px] bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-semibold">Edición</span>
+                                <h3 class="font-bold text-sm text-gray-900 leading-snug">Edición de videos promocional para redes sociales</h3>
+                                <div class="flex items-center justify-between pt-2">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-6 h-6 rounded-full bg-gray-300 overflow-hidden">
+                                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80" alt="Lucía Gómez" class="w-full h-full object-cover">
+                                        </div>
+                                        <span class="text-xs text-gray-600 font-medium">Lucía Gómez</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3 text-xs text-gray-400">
+                                        <span><i class="fa-regular fa-heart mr-1"></i> 417</span>
+                                        <span><i class="fa-regular fa-eye mr-1"></i> 1.3k</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Proj Item 6: Cafetería ALMA (The main target project!) -->
+                    <div onclick="switchView('detalle')" class="bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="h-64 relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80" alt="Cafetería ALMA" class="w-full h-full object-cover hover:scale-105 transition">
+                                <div class="absolute top-4 right-4 bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-md text-gray-700">
+                                    <i class="fa-regular fa-bookmark text-xs"></i>
+                                </div>
+                            </div>
+                            <div class="p-5 space-y-3">
+                                <span class="text-[10px] bg-rose-100 text-rose-800 px-3 py-1 rounded-full font-semibold">Diseño Gráfico</span>
+                                <h3 class="font-bold text-sm text-gray-900 leading-snug">Diseño de identidad de marca para cafetería artesanal</h3>
+                                <div class="flex items-center justify-between pt-2">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-6 h-6 rounded-full bg-gray-300 overflow-hidden">
+                                            <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=100&q=80" alt="Valentina Rojas" class="w-full h-full object-cover">
+                                        </div>
+                                        <span class="text-xs text-gray-600 font-medium">Valentina Rojas</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3 text-xs text-gray-400">
+                                        <span><i class="fa-regular fa-heart mr-1"></i> 850</span>
+                                        <span><i class="fa-regular fa-eye mr-1"></i> 5k</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Proj Item 7: Ilustración ropa -->
+                    <div onclick="switchView('detalle')" class="bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="h-64 relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80" alt="Ilustración" class="w-full h-full object-cover hover:scale-105 transition">
+                                <div class="absolute top-4 right-4 bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-md text-gray-700">
+                                    <i class="fa-regular fa-bookmark text-xs"></i>
+                                </div>
+                            </div>
+                            <div class="p-5 space-y-3">
+                                <span class="text-[10px] bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full font-semibold">Ilustración</span>
+                                <h3 class="font-bold text-sm text-gray-900 leading-snug">Ilustraciones personalizadas para marca de ropa</h3>
+                                <div class="flex items-center justify-between pt-2">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-6 h-6 rounded-full bg-gray-300 overflow-hidden">
+                                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&q=80" alt="Mariana López" class="w-full h-full object-cover">
+                                        </div>
+                                        <span class="text-xs text-gray-600 font-medium">Mariana López</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3 text-xs text-gray-400">
+                                        <span><i class="fa-regular fa-heart mr-1"></i> 265</span>
+                                        <span><i class="fa-regular fa-eye mr-1"></i> 1k</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Proj Item 8: Gaming setup graphics -->
+                    <div onclick="switchView('detalle')" class="bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="h-64 relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80" alt="Gaming" class="w-full h-full object-cover hover:scale-105 transition">
+                                <div class="absolute top-4 right-4 bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-md text-gray-700">
+                                    <i class="fa-regular fa-bookmark text-xs"></i>
+                                </div>
+                            </div>
+                            <div class="p-5 space-y-3">
+                                <span class="text-[10px] bg-rose-100 text-rose-800 px-3 py-1 rounded-full font-semibold">Diseño Gráfico</span>
+                                <h3 class="font-bold text-sm text-gray-900 leading-snug">Piezas gráficas para lanzamiento de producto</h3>
+                                <div class="flex items-center justify-between pt-2">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-6 h-6 rounded-full bg-gray-300 overflow-hidden">
+                                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" alt="José Ramírez" class="w-full h-full object-cover">
+                                        </div>
+                                        <span class="text-xs text-gray-600 font-medium">José Ramírez</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3 text-xs text-gray-400">
+                                        <span><i class="fa-regular fa-heart mr-1"></i> 150</span>
+                                        <span><i class="fa-regular fa-eye mr-1"></i> 3k</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="flex justify-center items-center space-x-2 mt-12">
+                    <button class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-gray-50"><i class="fa-solid fa-angles-left text-xs"></i></button>
+                    <button class="w-10 h-10 rounded-full bg-teal-400 text-white font-bold flex items-center justify-center shadow-sm">1</button>
+                    <button class="w-10 h-10 rounded-full border border-gray-200 text-gray-700 hover:bg-gray-50 font-bold flex items-center justify-center">2</button>
+                    <button class="w-10 h-10 rounded-full border border-gray-200 text-gray-700 hover:bg-gray-50 font-bold flex items-center justify-center">3</button>
+                    <button class="w-10 h-10 rounded-full border border-gray-200 text-gray-700 hover:bg-gray-50 font-bold flex items-center justify-center">4</button>
+                    <button class="w-10 h-10 rounded-full border border-gray-200 text-gray-700 hover:bg-gray-50 font-bold flex items-center justify-center">5</button>
+                    <button class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-gray-50"><i class="fa-solid fa-angles-right text-xs"></i></button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= VIEW 4: PROYECTO DETALLE (PR-1) ================= -->
+        <section id="view-detalle" class="view-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <!-- Back link -->
+                <div class="mb-6">
+                    <a href="#" onclick="switchView('proyectos'); return false;" class="text-xs font-bold text-gray-500 hover:text-teal-600 flex items-center space-x-2">
+                        <span>&larr; Volver a proyectos</span>
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                    <!-- Left Column: Details & Images -->
+                    <div class="lg:col-span-8 space-y-8">
+                        <div>
+                            <span class="text-xs font-semibold bg-rose-100 text-rose-800 px-3 py-1 rounded-full">Diseño Gráfico</span>
+                            <h1 class="text-3xl sm:text-4xl font-black text-gray-900 mt-4 leading-tight">
+                                Identidad de marca para cafetería artesanal
+                            </h1>
+                            <p class="text-gray-600 text-sm mt-4 leading-relaxed">
+                                Diseño de identidad visual completa para cafetería artesanal con enfoque en lo natural, moderno y acogedor
+                            </p>
+                        </div>
+
+                        <!-- Main Showcase Image -->
+                        <div class="rounded-3xl overflow-hidden shadow-lg border border-gray-100 bg-gray-50">
+                            <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1000&q=80" alt="Cafetería ALMA Detalle" class="w-full h-[420px] object-cover">
+                        </div>
+
+                        <!-- Sub-images gallery -->
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                            <div class="rounded-2xl overflow-hidden shadow-sm border border-gray-100 h-28">
+                                <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=300&q=80" alt="Thumbnail 1" class="w-full h-full object-cover">
+                            </div>
+                            <div class="rounded-2xl overflow-hidden shadow-sm border border-gray-100 h-28">
+                                <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=300&q=80" alt="Thumbnail 2" class="w-full h-full object-cover">
+                            </div>
+                            <div class="rounded-2xl overflow-hidden shadow-sm border border-gray-100 h-28">
+                                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=300&q=80" alt="Thumbnail 3" class="w-full h-full object-cover">
+                            </div>
+                            <div class="rounded-2xl overflow-hidden shadow-sm border border-gray-100 h-28">
+                                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=300&q=80" alt="Thumbnail 4" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+
+                        <!-- Publish stats & social -->
+                        <div class="flex flex-wrap items-center justify-between text-xs text-gray-500 py-4 border-y border-gray-100">
+                            <span>Publicado hace 3 semanas</span>
+                            <div class="flex items-center space-x-6">
+                                <span class="flex items-center space-x-1.5"><i class="fa-regular fa-heart text-pink-500"></i><span>850 me gusta</span></span>
+                                <span class="flex items-center space-x-1.5"><i class="fa-regular fa-eye"></i><span>5k vistas</span></span>
+                            </div>
+                        </div>
+
+                        <!-- Tabs Description / Valoraciones -->
+                        <div class="border-b border-gray-200 flex space-x-8 text-sm font-semibold">
+                            <span class="text-teal-600 border-b-2 border-teal-500 pb-3 cursor-pointer">DESCRIPCIÓN</span>
+                            <span class="text-gray-400 pb-3 cursor-pointer hover:text-gray-700">IMÁGENES</span>
+                            <span class="text-gray-400 pb-3 cursor-pointer hover:text-gray-700">VALORACIONES</span>
+                            <span class="text-gray-400 pb-3 cursor-pointer hover:text-gray-700">PROPUESTAS</span>
+                        </div>
+
+                        <div class="space-y-6 pt-2">
+                            <div>
+                                <h3 class="font-bold text-gray-900 mb-3">DESCRIPCIÓN DEL PROYECTO</h3>
+                                <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                                    Este proyecto consistió en el desarrollo de una identidad de marca completa para una cafetería artesanal llamada BRUMA. Se trabajó en el diseño del logotipo, paleta de colores, tipografía, papelería, packaging y piezas para redes sociales, con el objetivo de transmitir una experiencia cálida, natural y auténtica.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-3 text-xs uppercase">Entregables Incluidos</h4>
+                                <ul class="space-y-2 text-xs sm:text-sm text-gray-600">
+                                    <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-teal-500"></i><span>Logotipo principal y versiones</span></li>
+                                    <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-teal-500"></i><span>Paleta de colores y tipografía</span></li>
+                                    <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-teal-500"></i><span>Papelería (tarjetas, bolsas, vasos)</span></li>
+                                    <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-teal-500"></i><span>Mockups para redes sociales</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Interés en proyecto box -->
+                        <div class="bg-teal-50/40 rounded-3xl p-8 border border-teal-100 flex flex-col sm:flex-row items-center justify-between gap-6">
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-sm">¿Te interesa este proyecto?</h4>
+                                <p class="text-xs text-gray-500 mt-1">Puedes enviar tu propuesta y mostrar cómo puedes hacerlo realidad.</p>
+                            </div>
+                            <div class="space-y-3 w-full sm:w-auto">
+                                <button onclick="openModal('Enviar propuesta')" class="w-full px-6 py-3 bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-full text-xs transition shadow-sm">
+                                    Enviar propuesta
+                                </button>
+                                <button onclick="openModal('Preguntar algo')" class="w-full px-6 py-3 border border-teal-500 text-teal-600 hover:bg-teal-50 font-semibold rounded-full text-xs transition">
+                                    Preguntar algo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Creator profile & Project details -->
+                    <div class="lg:col-span-4 space-y-6">
+                        <!-- Creator card -->
+                        <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm space-y-6 text-center">
+                            <div class="flex flex-col items-center">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Valentina Rojas" class="w-20 h-20 rounded-full object-cover shadow-md mb-3">
+                                <h3 class="font-bold text-lg text-gray-900">Valentina Rojas</h3>
+                                <p class="text-xs text-gray-500">Diseñadora Gráfica</p>
+                                <div class="flex items-center space-x-1 mt-1">
+                                    <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                                    <span class="text-xs font-bold text-gray-800">4.95</span>
+                                    <span class="text-xs text-gray-400">(250)</span>
+                                </div>
+                            </div>
+                            <div class="space-y-3 pt-2">
+                                <button onclick="openModal('Contactar')" class="w-full py-3 bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-full text-xs transition shadow-sm">
+                                    Contactar
+                                </button>
+                                <button onclick="openModal('Guardar proyecto')" class="w-full py-3 border border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold rounded-full text-xs transition">
+                                    Guardar proyectos
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Project info breakdown -->
+                        <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm space-y-6">
+                            <h4 class="font-bold text-xs uppercase tracking-wider text-gray-900">DETALLES DEL PROYECTO</h4>
+                            
+                            <div class="space-y-4 text-xs">
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-8 h-8 rounded-lg bg-gray-100 text-gray-600 flex items-center justify-center flex-shrink-0">
+                                        <i class="fa-solid fa-table-cells-large text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-400">Categoría</p>
+                                        <p class="font-bold text-gray-800">Diseño Gráfico</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-8 h-8 rounded-lg bg-gray-100 text-gray-600 flex items-center justify-center flex-shrink-0">
+                                        <i class="fa-solid fa-briefcase text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-400">Presupuesto</p>
+                                        <p class="font-bold text-gray-800">S/ 600 - S/ 800</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-8 h-8 rounded-lg bg-gray-100 text-gray-600 flex items-center justify-center flex-shrink-0">
+                                        <i class="fa-regular fa-clock text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-400">Tiempo de entrega</p>
+                                        <p class="font-bold text-gray-800">7 días hábiles</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-8 h-8 rounded-lg bg-gray-100 text-gray-600 flex items-center justify-center flex-shrink-0">
+                                        <i class="fa-regular fa-file-lines text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-400">Propuestas recibidas</p>
+                                        <p class="font-bold text-gray-800">12 propuestas</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Share -->
+                            <div class="pt-4 border-t border-gray-100 space-y-3">
+                                <p class="text-xs font-semibold text-gray-700">Compartir</p>
+                                <div class="flex items-center space-x-3">
+                                    <button class="w-9 h-9 rounded-full bg-gray-100 hover:bg-teal-50 hover:text-teal-600 text-gray-600 flex items-center justify-center transition"><i class="fa-solid fa-link text-xs"></i></button>
+                                    <button class="w-9 h-9 rounded-full bg-gray-100 hover:bg-pink-50 hover:text-pink-600 text-gray-600 flex items-center justify-center transition"><i class="fa-brands fa-instagram text-xs"></i></button>
+                                    <button class="w-9 h-9 rounded-full bg-gray-100 hover:bg-emerald-50 hover:text-emerald-600 text-gray-600 flex items-center justify-center transition"><i class="fa-brands fa-whatsapp text-xs"></i></button>
+                                    <button class="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center transition"><i class="fa-solid fa-ellipsis text-xs"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Similar Projects widget -->
+                        <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm space-y-4">
+                            <div class="flex items-center justify-between">
+                                <h4 class="font-bold text-xs uppercase tracking-wider text-gray-900">Proyectos similares</h4>
+                                <a href="#" onclick="switchView('proyectos'); return false;" class="text-[11px] text-teal-600 font-semibold hover:underline">Ver mas</a>
+                            </div>
+
+                            <div class="space-y-3">
+                                <div onclick="switchView('detalle')" class="flex items-center space-x-3 p-2 rounded-2xl hover:bg-gray-50 cursor-pointer transition">
+                                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=150&q=80" alt="Sim 1" class="w-14 h-14 rounded-xl object-cover">
+                                    <div>
+                                        <p class="text-xs font-bold text-gray-900 line-clamp-1">Diseño de feed para redes sociales</p>
+                                        <p class="text-[10px] text-purple-600 font-semibold mt-0.5">Marketing Digital</p>
+                                        <div class="flex items-center space-x-3 text-[10px] text-gray-400 mt-1">
+                                            <span><i class="fa-regular fa-heart mr-0.5"></i> 21</span>
+                                            <span><i class="fa-regular fa-eye mr-0.5"></i> 302</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div onclick="switchView('detalle')" class="flex items-center space-x-3 p-2 rounded-2xl hover:bg-gray-50 cursor-pointer transition">
+                                    <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=150&q=80" alt="Sim 2" class="w-14 h-14 rounded-xl object-cover">
+                                    <div>
+                                        <p class="text-xs font-bold text-gray-900 line-clamp-1">Banner promocional para productora</p>
+                                        <p class="text-[10px] text-amber-600 font-semibold mt-0.5">Edición</p>
+                                        <div class="flex items-center space-x-3 text-[10px] text-gray-400 mt-1">
+                                            <span><i class="fa-regular fa-heart mr-0.5"></i> 21</span>
+                                            <span><i class="fa-regular fa-eye mr-0.5"></i> 574</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div onclick="switchView('detalle')" class="flex items-center space-x-3 p-2 rounded-2xl hover:bg-gray-50 cursor-pointer transition">
+                                    <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=150&q=80" alt="Sim 3" class="w-14 h-14 rounded-xl object-cover">
+                                    <div>
+                                        <p class="text-xs font-bold text-gray-900 line-clamp-1">Diseño web para tienda online</p>
+                                        <p class="text-[10px] text-teal-600 font-semibold mt-0.5">Diseño Gráfico</p>
+                                        <div class="flex items-center space-x-3 text-[10px] text-gray-400 mt-1">
+                                            <span><i class="fa-regular fa-heart mr-0.5"></i> 37</span>
+                                            <span><i class="fa-regular fa-eye mr-0.5"></i> 893</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= VIEW 5: OPORTUNIDADES ================= -->
+        <section id="view-oportunidades" class="view-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <!-- Oportunidades Hero Banner -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-gradient-to-r from-teal-50/60 to-pink-50/60 p-8 sm:p-12 rounded-3xl border border-gray-100 mb-12">
+                    <div class="lg:col-span-6 space-y-4">
+                        <h1 class="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight leading-tight">
+                            ENCUENTRA PROYECTOS Y HAZ CRECER TU NEGOCIO
+                        </h1>
+                    </div>
+                    <div class="lg:col-span-6 flex justify-end">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Oportunidades" class="rounded-2xl shadow-md w-full h-[220px] object-cover">
+                    </div>
+                </div>
+
+                <!-- Category Round Circles with Discount Banners -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-16 text-center">
+                    <!-- Op Card 1 -->
+                    <div class="bg-teal-50/40 rounded-3xl p-6 border border-teal-100 flex flex-col items-center">
+                        <div class="w-28 h-28 rounded-full overflow-hidden shadow-md mb-4 border-2 border-white">
+                            <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=300&q=80" alt="Branding" class="w-full h-full object-cover">
+                        </div>
+                        <span class="text-xs font-bold uppercase text-gray-700 tracking-wider">BRANDING</span>
+                        <h3 class="text-xl font-black text-teal-600 mt-1">25% DSCTO</h3>
+                        <p class="text-[10px] text-gray-400 mt-1">En algunos proyectos</p>
+                    </div>
+
+                    <!-- Op Card 2 -->
+                    <div class="bg-teal-50/40 rounded-3xl p-6 border border-teal-100 flex flex-col items-center">
+                        <div class="w-28 h-28 rounded-full overflow-hidden shadow-md mb-4 border-2 border-white">
+                            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=300&q=80" alt="Fotografía" class="w-full h-full object-cover">
+                        </div>
+                        <span class="text-xs font-bold uppercase text-gray-700 tracking-wider">FOTOGRAFÍA</span>
+                        <h3 class="text-xl font-black text-teal-600 mt-1">45% DSCTO</h3>
+                        <p class="text-[10px] text-gray-400 mt-1">En algunos proyectos</p>
+                    </div>
+
+                    <!-- Op Card 3 -->
+                    <div class="bg-teal-50/40 rounded-3xl p-6 border border-teal-100 flex flex-col items-center">
+                        <div class="w-28 h-28 rounded-full overflow-hidden shadow-md mb-4 border-2 border-white">
+                            <img src="https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&w=300&q=80" alt="Diseño Gráfico" class="w-full h-full object-cover">
+                        </div>
+                        <span class="text-xs font-bold uppercase text-gray-700 tracking-wider">DISEÑO GRÁFICO</span>
+                        <h3 class="text-xl font-black text-teal-600 mt-1">20% DSCTO</h3>
+                        <p class="text-[10px] text-gray-400 mt-1">En algunos proyectos</p>
+                    </div>
+
+                    <!-- Op Card 4 -->
+                    <div class="bg-teal-50/40 rounded-3xl p-6 border border-teal-100 flex flex-col items-center">
+                        <div class="w-28 h-28 rounded-full overflow-hidden shadow-md mb-4 border-2 border-white">
+                            <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=300&q=80" alt="Edición Video" class="w-full h-full object-cover">
+                        </div>
+                        <span class="text-xs font-bold uppercase text-gray-700 tracking-wider">EDICIÓN / VIDEO</span>
+                        <h3 class="text-xl font-black text-teal-600 mt-1">30% DSCTO</h3>
+                        <p class="text-[10px] text-gray-400 mt-1">En algunos proyectos</p>
+                    </div>
+                </div>
+
+                <!-- Featured Opportunities Rows -->
+                <div class="space-y-10">
+                    <!-- Row 1: Fotografía -->
+                    <div class="bg-gray-100/70 rounded-3xl p-8 border border-gray-200 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <div class="lg:col-span-4 space-y-4">
+                            <h3 class="text-2xl font-black text-gray-900">Fotografía</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed">
+                                Sesión fotográfica de producto para la cafetería artesanal PURA, con su línea de tazas en blanco, negro mate y azul sobre una mesa de madera rústica. Luz suave y neutros que transmiten una experiencia cálida, natural y auténtica.
+                            </p>
+                            <button onclick="switchView('detalle')" class="px-5 py-2.5 bg-rose-300 hover:bg-rose-400 text-gray-900 font-bold rounded-full text-xs transition shadow-sm">
+                                Ver proyecto
+                            </button>
+                        </div>
+                        <div class="lg:col-span-3 text-center space-y-1 bg-white/60 p-6 rounded-2xl border border-gray-200">
+                            <p class="text-xs text-gray-400 line-through">S/ 500 antes</p>
+                            <h4 class="text-2xl font-black text-gray-900">45% DSCTO</h4>
+                            <div class="pt-2 border-t border-gray-200 mt-2">
+                                <p class="text-[10px] text-gray-500 uppercase tracking-wide">AHORA</p>
+                                <p class="text-3xl font-black text-gray-900">S/ 275</p>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-5 grid grid-cols-3 gap-3">
+                            <div class="col-span-2 rounded-2xl overflow-hidden shadow-sm h-36">
+                                <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=400&q=80" alt="Foto 1" class="w-full h-full object-cover">
+                            </div>
+                            <div class="rounded-2xl overflow-hidden shadow-sm h-36">
+                                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=300&q=80" alt="Foto 2" class="w-full h-full object-cover">
+                            </div>
+                            <div class="rounded-2xl overflow-hidden shadow-sm h-28">
+                                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=300&q=80" alt="Foto 3" class="w-full h-full object-cover">
+                            </div>
+                            <div class="col-span-2 rounded-2xl overflow-hidden shadow-sm h-28">
+                                <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=400&q=80" alt="Foto 4" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Diseño Gráfico -->
+                    <div class="bg-gray-100/70 rounded-3xl p-8 border border-gray-200 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <div class="lg:col-span-4 space-y-4">
+                            <h3 class="text-2xl font-black text-gray-900">DISEÑO GRÁFICO</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed">
+                                Desarrollé la identidad visual y el packaging de ALVA, una cafetería artesanal de especialidad, con un isotipo de hojas y una tipografía dorada sobre fondos kraft y negro mate. El resultado es una marca sobria, cálida y premium, aplicada en bolsas y vasos.
+                            </p>
+                            <button onclick="switchView('detalle')" class="px-5 py-2.5 bg-rose-300 hover:bg-rose-400 text-gray-900 font-bold rounded-full text-xs transition shadow-sm">
+                                Ver proyecto
+                            </button>
+                        </div>
+                        <div class="lg:col-span-3 text-center space-y-1 bg-white/60 p-6 rounded-2xl border border-gray-200">
+                            <p class="text-xs text-gray-400 line-through">S/ 300 antes</p>
+                            <h4 class="text-2xl font-black text-gray-900">20% DSCTO</h4>
+                            <div class="pt-2 border-t border-gray-200 mt-2">
+                                <p class="text-[10px] text-gray-500 uppercase tracking-wide">AHORA</p>
+                                <p class="text-3xl font-black text-gray-900">S/ 240</p>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-5 grid grid-cols-3 gap-3">
+                            <div class="col-span-2 rounded-2xl overflow-hidden shadow-sm h-36">
+                                <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=400&q=80" alt="DG 1" class="w-full h-full object-cover">
+                            </div>
+                            <div class="rounded-2xl overflow-hidden shadow-sm h-36">
+                                <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=300&q=80" alt="DG 2" class="w-full h-full object-cover">
+                            </div>
+                            <div class="rounded-2xl overflow-hidden shadow-sm h-28">
+                                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=300&q=80" alt="DG 3" class="w-full h-full object-cover">
+                            </div>
+                            <div class="col-span-2 rounded-2xl overflow-hidden shadow-sm h-28">
+                                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=80" alt="DG 4" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-zinc-900 text-white py-12 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+            <h2 class="text-xl sm:text-2xl font-bold tracking-tight">
+                Donde las ideas encuentran a las personas capaces de hacerlo realidad.
+            </h2>
+            <div class="flex flex-wrap justify-center gap-4 pt-4">
+                <button onclick="switchView('proyectos')" class="px-6 py-3 bg-black text-white border border-zinc-700 hover:bg-zinc-800 rounded-full text-xs font-semibold transition">
+                    Explorar talento
+                </button>
+                <button onclick="openModal('Crear mi perfil')" class="px-6 py-3 bg-white text-zinc-900 hover:bg-gray-100 rounded-full text-xs font-semibold transition shadow-md">
+                    Crear mi perfil
+                </button>
+            </div>
+            <p class="text-xs text-zinc-500 pt-8">&copy; 2026 MAKERS Platform. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- INTERACTION MODAL -->
+    <div id="actionModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 id="modalTitle" class="text-xl font-black text-gray-900">Acción</h3>
+                <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <p id="modalDesc" class="text-sm text-gray-600">Has seleccionado esta opción en la plataforma MAKERS. ¡Explora todas las vistas interactivas!</p>
+            <div class="pt-2">
+                <button onclick="closeModal()" class="w-full py-3 bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-full text-sm transition shadow-sm">
+                    Aceptar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+        function switchView(viewName) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.view-section');
+            sections.forEach(sec => sec.classList.remove('active'));
+
+            // Show target section
+            const target = document.getElementById('view-' + viewName);
+            if (target) {
+                target.classList.add('active');
+            }
+
+            // Update active navbar styles
+            const navItems = ['inicio', 'servicios', 'proyectos', 'oportunidades'];
+            navItems.forEach(item => {
+                const navEl = document.getElementById('nav-' + item);
+                if (navEl) {
+                    if (item === viewName || (viewName === 'detalle' && item === 'proyectos')) {
+                        navEl.classList.remove('text-gray-500');
+                        navEl.classList.add('text-gray-800', 'border-b-2', 'border-teal-500');
+                    } else {
+                        navEl.classList.remove('text-gray-800', 'border-b-2', 'border-teal-500');
+                        navEl.classList.add('text-gray-500');
+                    }
+                }
+            });
+
+            // Scroll to top smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openModal(actionName) {
+            const modal = document.getElementById('actionModal');
+            const title = document.getElementById('modalTitle');
+            const desc = document.getElementById('modalDesc');
+            
+            title.innerText = actionName;
+            desc.innerText = `Has ingresado a la sección "${actionName}" de MAKERS. Disfruta de la experiencia interactiva de esta plataforma SPA.`;
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('actionModal');
+            modal.classList.add('hidden');
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            // Default view is inicio
+            switchView('inicio');
+        }
+    </script>
+</body>
+</html>
